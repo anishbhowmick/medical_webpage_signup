@@ -41,10 +41,26 @@ export function SignupForm() {
 
   const onSubmit = async (data: SignupFormData) => {
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to register');
+      }
+
+      console.log('User registered successfully');
+      setIsSuccess(true);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -58,8 +74,22 @@ export function SignupForm() {
             Registration Successful!
           </h2>
           <p className="text-muted-foreground">
-            Thank you for signing up. Please check your email to verify your account.
+            Thank you for signing up.
           </p>
+        </div>
+        <div className="flex space-x-4">
+          <a
+            href="https://medical-webpage-front.vercel.app"
+            className="bg-primary hover:bg-primary/90 inline-block px-4 py-2 text-white rounded"
+          >
+            Return to Home
+          </a>
+          <a
+            href="https://medical-webpage-signin.vercel.app"
+            className="bg-primary hover:bg-primary/90 inline-block px-4 py-2 text-white rounded"
+          >
+            Go to Login
+          </a>
         </div>
       </div>
     );
@@ -123,7 +153,7 @@ export function SignupForm() {
                         <FormLabel>First Name</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="John"
+                            placeholder="eg: John"
                             className="hover:border-primary/50 focus:border-primary" 
                             {...field}
                           />
@@ -181,7 +211,7 @@ export function SignupForm() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Password (Uppercase,lowercase,special character and number)</FormLabel>
                       <FormControl>
                         <Input 
                           type="password"
