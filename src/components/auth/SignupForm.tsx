@@ -42,7 +42,7 @@ export function SignupForm() {
   const onSubmit = async (data: SignupFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://https://medical-backend-l140.onrender.com/api/signup', {
+      const response = await fetch('https://medical-backend-l140.onrender.com/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
