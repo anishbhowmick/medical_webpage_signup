@@ -85,7 +85,7 @@ export function SignupForm() {
             Return to Home
           </a>
           <a
-            href="https://medical-webpage-signin.vercel.app"
+            href="https://medical-webpage-login.vercel.app/"
             className="bg-primary hover:bg-primary/90 inline-block px-4 py-2 text-white rounded"
           >
             Go to Login
